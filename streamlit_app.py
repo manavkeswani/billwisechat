@@ -25,15 +25,17 @@ def get_gemini_response(input, image, prompt):
     return response.text
 
 # Function to setup image input
-def input_image_setup(uploaded_file):
-    if uploaded_file is not None:
-        bytes_data = uploaded_file.getvalue()
-        image = {
-            "mime_type": uploaded_file.type,
-            "data": bytes_data
-        }
-        return image
-    return None
+def input_image_setup(uploaded_files):
+    images = []
+    if uploaded_files is not None:
+        for uploaded_file in uploaded_files:
+            bytes_data = uploaded_file.getvalue()
+            image = {
+                "mime_type": uploaded_file.type,
+                "data": bytes_data
+            }
+            images.append(image)
+    return images
 
 # Input prompt
 input_prompt = st.text_input("Input Prompt: ", key="input")
